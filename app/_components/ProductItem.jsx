@@ -1,11 +1,61 @@
-import React from 'react'
+import React from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import ProductItemDetail from "./ProductItemDetail";
 
-const ProductItem = ({product}) => {
+const ProductItem = ({ product }) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div
+      className="p-2 md:p-6 flex flex-col items-center justify-center gap-3 border rounded-lg hover:scale-110 
+    hover:shadow-lg transition-all ease-in-out
+    cursor-pointer"
+    >
+      <Image
+        src={product?.attributes?.images?.data[0]?.attributes?.url}
+        width={500}
+        height={200}
+        alt={product?.attributes?.name}
+        className="h-[230px] w-[200px] object-contain"
+      />
+      <h2 className="font-bold text-lg">{product.attributes.name}</h2>
+      <div className="flex gap-3">
+        {product.attributes.sellingPrice && (
+          <h2>${product.attributes.sellingPrice}</h2>
+        )}
+        <h2
+          className={`font-bold text-lg  ${
+            product.attributes.sellingPrice && "line-through text-gray-500"
+          }`}
+        >
+          ${product.attributes.mrp}
+        </h2>
+      </div>
 
-export default ProductItem
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="text-primary hover:bg-primary">
+            Add to Cart
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              <ProductItemDetail product={product} />
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
+
+export default ProductItem;

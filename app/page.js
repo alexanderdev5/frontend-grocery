@@ -11,7 +11,7 @@ export default  async function Home() {
   const productList =await GlobalApi.getAllProducts();
 
   return (
-    <div className="p-5 md:p-10 px-16">
+    <div className="p-5 md:p-10">
    {/**Sliders */}
 
     <Slider sliderList={sliderList} />
@@ -20,6 +20,9 @@ export default  async function Home() {
     <CategoryList categoryList={categoryList} />
      {/**Category */}
      <ProductList  productList={productList}/>
+     {/**Banner */}
+     <Image src='/banner.png' width={1000} height={300} alt="banner" 
+     className="w-full h-[400px] object-contain"/>
    </div>
   );
 }
